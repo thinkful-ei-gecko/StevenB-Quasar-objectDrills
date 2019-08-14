@@ -37,3 +37,16 @@ const hobbitMeals = {
 
 //console.log(hobbitMeals.meals[3]);
 
+//Drill #4
+const arrayOfPeople = [
+  {name: 'Steve', jobTitle: 'student'}, 
+  {name: 'Quasar', jobTitle: 'game artist'},
+  {name: 'Alex', jobTitle: 'chemist'}
+];
+
+function peopleInArray(arrayOfObject) {
+  arrayOfObject.forEach(element => 
+    console.log(`Hi my name ${element.name} and I'm a ${element.jobTitle}!`));
+}
+
+//peopleInArray(arrayOfPeople);
