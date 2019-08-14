@@ -142,11 +142,47 @@ const characters = [createCharacter('Gandalf the White', 'gandalf', 'Wizard', 'M
   createCharacter('Legolas', 'legolas', 'elf', 'Woodland Realm', 8, 5, 'a Bow and Arrow')
 ];
 
-characters.push(createCharacter('Arwen Undomiel', 'arwen', 'Half-elf', 'Rivendell', 5, 5, 'Hadhafang'));   // add arwen to characters array
-characters.find( element => element.nickname === 'aragorn' ? element.describe() : null);      // find 'aragorn' and call his describe function
-const hobbits = characters.filter( element => element.race === 'Hobbit');                     // create a new array of just hobbits from characters
-console.log(hobbits);
+// characters.push(createCharacter('Arwen Undomiel', 'arwen', 'Half-elf', 'Rivendell', 5, 5, 'Hadhafang'));   // add arwen to characters array
+// characters.find( element => element.nickname === 'aragorn' ? element.describe() : null);      // find 'aragorn' and call his describe function
+// const hobbits = characters.filter( element => element.race === 'Hobbit');                     // create a new array of just hobbits from characters
+// console.log(hobbits);
 
-const strongCharacters = characters.filter( element => element.attack > 5);  
-console.log(strongCharacters);
+// const strongCharacters = characters.filter( element => element.attack > 5);  
+// console.log(strongCharacters);
 
+//Drill #8
+const HEROES = [
+  { id: 1, name: 'Captain America', squad: 'Avengers' },
+  { id: 2, name: 'Iron Man', squad: 'Avengers' },
+  { id: 3, name: 'Spiderman', squad: 'Avengers' },
+  { id: 4, name: 'Superman', squad: 'Justice League' },
+  { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
+  { id: 6, name: 'Aquaman', squad: 'Justice League' },
+  { id: 7, name: 'Hulk', squad: 'Avengers' },
+];
+
+function findOne(arr, query) {
+  let foundHero = arr.find(element => {
+
+    let queryKeys = Object.keys(query);
+    let queryResults = queryKeys.find((key, index) => {
+      if(query[key] !== element[key]) {
+        return false;
+      }
+      if(index === queryKeys.length - 1) {
+        return true;
+      } 
+    });
+    return queryResults;
+  });
+  if(foundHero === undefined) {
+    foundHero = null;
+  }
+  return foundHero;
+}
+
+//console.dir(findOne(HEROES, { id: 1 }));
+console.log(findOne(HEROES, { id: 10 }));
+console.log(findOne(HEROES, { id: 2, name: 'Aquaman' }));
+console.log(findOne(HEROES, { id: 5, squad: 'Justice League' }));
+console.log(findOne(HEROES, { squad: 'Justice League' }));
