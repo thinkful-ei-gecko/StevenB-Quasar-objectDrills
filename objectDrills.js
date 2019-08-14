@@ -50,3 +50,22 @@ function peopleInArray(arrayOfObject) {
 }
 
 //peopleInArray(arrayOfPeople);
+
+//Drill #5
+const arrayOfPeopleWithBoss = [
+  {name: 'Steve', jobTitle: 'Student', boss: 'Alex'}, 
+  {name: 'Quasar', jobTitle: 'Game Artist', boss: 'Alex'},
+  {name: 'Alex', jobTitle: 'Chemist'}
+];
+
+function peopleWithBoss(bossIncludedArray) {
+  bossIncludedArray.forEach(element => {
+    if('boss' in element) {
+      console.log(`${element.jobTitle} ${element.name} reports to ${element.boss}.`);
+    } else {
+      console.log(`${element.jobTitle} ${element.name} doesn't report to anyone.`);
+    }
+  });
+}
+
+//peopleWithBoss(arrayOfPeopleWithBoss);
