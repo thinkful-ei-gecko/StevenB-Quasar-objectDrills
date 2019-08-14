@@ -111,16 +111,42 @@ console.log(decodeWords(string));
 
 // 7. write a character builder factory function 
 
-function createCharacter() {
+function createCharacter(name, nickname, race, origin, attack, defense, weapon) {
+  return {
+    name, 
+    nickname,
+    race, 
+    origin,
+    attack, 
+    defense,
+    weapon,
 
-  // describe method
-    // no parameters
-    // prints out string "{name} is a {race} from {origin}."
+    describe() {
+      console.log(`${this.name} is a ${this.race} from ${this.origin} who uses ${this.weapon}.`);
+    },
 
-  // evaluateFight method
-    // takes charactrer object
-    // returns string: "Your opponent takes {x} damage and you receive {y} damage"
+    evaluateFight(opponent) {
+      return `Your opponent takes ${ opponent.defense >= this.attack ? 0 : this.attack - opponent.defense} 
+      damage and you receive ${ this.defense >= opponent.attack ? 0 : opponent.attack - this.defense} damage`; 
+    }
+  };
+}
 
+// create array of characters that calls createCharacters()
+// contains 5 objects
 
-  
-  // create array of characters that calls createCharacters()}
+const characters = [createCharacter('Gandalf the White', 'gandalf', 'Wizard', 'Middle Earth', 10, 6, 'a Wizard Staff'),
+  createCharacter('Bilbo Baggins', 'bilbo', 'Hobbit', 'Shire', 2, 1, 'the Ring'),
+  createCharacter('Frodo Baggins', 'frodo', 'Hobbit', 'Shire', 3, 2, 'Sting and Barrow Blade'),
+  createCharacter('Aragorn Son of Arathorn', 'aragorn', 'Man', 'Dunnedain', 6, 8, 'Anduril'),
+  createCharacter('Legolas', 'legolas', 'elf', 'Woodland Realm', 8, 5, 'a Bow and Arrow')
+];
+
+characters.push(createCharacter('Arwen Undomiel', 'arwen', 'Half-elf', 'Rivendell', 5, 5, 'Hadhafang'));   // add arwen to characters array
+characters.find( element => element.nickname === 'aragorn' ? element.describe() : null);      // find 'aragorn' and call his describe function
+const hobbits = characters.filter( element => element.race === 'Hobbit');                     // create a new array of just hobbits from characters
+console.log(hobbits);
+
+const strongCharacters = characters.filter( element => element.attack > 5);  
+console.log(strongCharacters);
+
