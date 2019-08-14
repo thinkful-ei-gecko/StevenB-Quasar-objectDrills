@@ -31,3 +31,9 @@ function printFooBar() {
 //printFooBar();
 
 //Drill #3
+const hobbitMeals = {
+  meals: ['breakfast', 'second breakfast', 'elevenses', 'lunch', 'afternoon tea', 'dinner', 'supper']
+};
+
+//console.log(hobbitMeals.meals[3]);
+
