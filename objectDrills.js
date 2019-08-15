@@ -183,12 +183,13 @@ function findOne(arr, query) {
   return foundHero;                                       // return foundHero
 }
 
+/* 
 console.dir(findOne(HEROES, { id: 1 }));                              // test 1
 console.log(findOne(HEROES, { id: 10 }));                             // test 2
 console.log(findOne(HEROES, { id: 2, name: 'Aquaman' }));             // test 3
 console.log(findOne(HEROES, { id: 5, squad: 'Justice League' }));     // test 4
 console.log(findOne(HEROES, { squad: 'Justice League' }));            // test 5
-
+ */
 
 
 
@@ -230,5 +231,7 @@ const Database = {
   }
 };
 
-
-console.log(`\n8a.${Database.findOne({ id: 2 })}`);
+let findA = Database.findOne({ id: 7});
+//console.log(`${findA})}`);
+console.log(`${findA}`);
+console.dir(Database.findOne({ id: 2}));
