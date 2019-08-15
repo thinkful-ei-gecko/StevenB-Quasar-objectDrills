@@ -106,7 +106,7 @@ function decodeWords(sentence) {
 }
 
 let string = 'craft block argon meter bells brown croon droop';
-console.log(decodeWords(string));
+// console.log(decodeWords(string));
 
 
 // 7. write a character builder factory function 
@@ -162,27 +162,40 @@ const HEROES = [
 ];
 
 function findOne(arr, query) {
-  let foundHero = arr.find(element => {
 
-    let queryKeys = Object.keys(query);
-    let queryResults = queryKeys.find((key, index) => {
-      if(query[key] !== element[key]) {
-        return false;
+  let queryKeys = Object.keys(query);                   // queryKeys = array of keys in query             EX: {id: 2, name: 'aquaman'}
+
+  let foundHero = arr.find(element => {                   // find in array (HEROES obj array)
+    let queryResults = queryKeys.find((key, index) => {   // find in queryKeys (array of keys in query)   
+      //                                                     return matching key as queryResults                               EX: {id: 2, name: 'aquaman'}, 2 loops
+      //                                                                                                                       loop 1, key = id, index = 0
+      //                                                                                                                       loop 2, key = name, index = 1
+      let found = 0;
+      let queryKeyLength = queryKeys.length;  // debugging
+      let queryKeyValue = query[key];         // debugging
+      let elementKeyValue = query[key];       // debugging
+      if(query[key] === element[key]) {                   // if value matches, increment found
+        found++;                                   
+      } if (index === (queryKeys.length - 1)) {                   // execute on last iteration
+        (found === queryKeys.length) ? found = true : found = false;      // if all values matched (found = queryKeys.length)
+        return found;
       }
-      if(index === queryKeys.length - 1) {
-        return true;
-      } 
+      
+      
+      // found = false;
+      // if(index === (arr.length - 1)) {                // 
+      //   return true;
+      // } 
     });
     return queryResults;
   });
-  if(foundHero === undefined) {
-    foundHero = null;
-  }
-  return foundHero;
+
+  if(!foundHero) { foundHero = null; }                    // set to null if undefined 
+  return foundHero;                                       // return foundHero
 }
 
-//console.dir(findOne(HEROES, { id: 1 }));
-console.log(findOne(HEROES, { id: 10 }));
-console.log(findOne(HEROES, { id: 2, name: 'Aquaman' }));
-console.log(findOne(HEROES, { id: 5, squad: 'Justice League' }));
-console.log(findOne(HEROES, { squad: 'Justice League' }));
+console.dir(findOne(HEROES, { id: 1 }));                              // test 1
+console.log(findOne(HEROES, { id: 10 }));                             // test 2
+console.log(findOne(HEROES, { id: 2, name: 'Aquaman' }));             // test 3
+console.log(findOne(HEROES, { id: 5, squad: 'Justice League' }));     // test 4
+console.log(findOne(HEROES, { squad: 'Justice League' }));            // test 5
