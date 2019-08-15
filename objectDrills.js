@@ -162,34 +162,23 @@ const HEROES = [
 ];
 
 function findOne(arr, query) {
-
-  let queryKeys = Object.keys(query);                   // queryKeys = array of keys in query             EX: {id: 2, name: 'aquaman'}
+  let queryKeys = Object.keys(query);                     // queryKeys = array of keys in query                                EX: {id: 2, name: 'aquaman'}
 
   let foundHero = arr.find(element => {                   // find in array (HEROES obj array)
+    let found = 0;                                        // used in line 175, 177, 178
     let queryResults = queryKeys.find((key, index) => {   // find in queryKeys (array of keys in query)   
-      //                                                     return matching key as queryResults                               EX: {id: 2, name: 'aquaman'}, 2 loops
+      //                                                     queryResults = first matching key                                 EX: {id: 2, name: 'aquaman'}, 2 loops
       //                                                                                                                       loop 1, key = id, index = 0
-      //                                                                                                                       loop 2, key = name, index = 1
-      let found = 0;
-      let queryKeyLength = queryKeys.length;  // debugging
-      let queryKeyValue = query[key];         // debugging
-      let elementKeyValue = query[key];       // debugging
-      if(query[key] === element[key]) {                   // if value matches, increment found
+      //                                                                                                                       loop 2, key = name, index = 1  
+      if(query[key] === element[key]) {                                   // if value matches, increment found
         found++;                                   
-      } if (index === (queryKeys.length - 1)) {                   // execute on last iteration
+      } if (index === (queryKeys.length - 1)) {                           // execute on last iteration
         (found === queryKeys.length) ? found = true : found = false;      // if all values matched (found = queryKeys.length)
         return found;
       }
-      
-      
-      // found = false;
-      // if(index === (arr.length - 1)) {                // 
-      //   return true;
-      // } 
     });
     return queryResults;
   });
-
   if(!foundHero) { foundHero = null; }                    // set to null if undefined 
   return foundHero;                                       // return foundHero
 }
@@ -199,3 +188,47 @@ console.log(findOne(HEROES, { id: 10 }));                             // test 2
 console.log(findOne(HEROES, { id: 2, name: 'Aquaman' }));             // test 3
 console.log(findOne(HEROES, { id: 5, squad: 'Justice League' }));     // test 4
 console.log(findOne(HEROES, { squad: 'Justice League' }));            // test 5
+
+
+
+
+// 8a. BONUS II: A Databse Method
+// create a fake database in memory with the same dataset
+// add a method to Database called findOne
+// instead of referencing a HEROES array in the global scope, it should pull from the store in the database
+
+
+
+const Database = {
+  store: {
+    heroes: [
+      { id: 1, name: 'Captain America', squad: 'Avengers' },
+      { id: 2, name: 'Iron Man', squad: 'Avengers' },
+      { id: 3, name: 'Spiderman', squad: 'Avengers' },
+      { id: 4, name: 'Superman', squad: 'Justice League' },
+      { id: 5, name: 'Wonder Woman', squad: 'Justice League' },
+      { id: 6, name: 'Aquaman', squad: 'Justice League' },
+      { id: 7, name: 'Hulk', squad: 'Avengers' },
+    ]
+  },
+  findOne(query) {
+    let queryKeys = Object.keys(query);                     
+    let foundHero = this.store.heroes.find(element => {           // only changed line from #8.         
+      let found = 0;                                        
+      let queryResults = queryKeys.find((key, index) => {     
+        if(query[key] === element[key]) {                                   
+          found++;                                   
+        } if (index === (queryKeys.length - 1)) {                           
+          (found === queryKeys.length) ? found = true : found = false;
+          return found;
+        }
+      });
+      return queryResults;
+    });
+    if(!foundHero) { foundHero = null; }                     
+    return foundHero;                                       
+  }
+};
+
+
+console.log(`\n8a.${Database.findOne({ id: 2 })}`);
